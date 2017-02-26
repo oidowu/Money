@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("react-content");
   let store;
   if (window.currentUser) {
-    store = configureStore({ session: { currentUser, errors: [] }});
+    store = configureStore({ session: { currentUser, errors: {} }});
   } else {
     store = configureStore();
   }

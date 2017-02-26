@@ -11,17 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218170927) do
+ActiveRecord::Schema.define(version: 20170225175347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followee_id", null: false
+  end
+
+  add_index "follows", ["followee_id"], name: "index_follows_on_followee_id", unique: true, using: :btree
+  add_index "follows", ["follower_id", "followee_id"], name: "index_follows_on_follower_id_and_followee_id", unique: true, using: :btree
+
+  create_table "post_views", force: :cascade do |t|
+    t.integer "viewer_id", null: false
+    t.integer "post_id",   null: false
+  end
+
+  add_index "post_views", ["post_id"], name: "index_post_views_on_post_id", using: :btree
+  add_index "post_views", ["viewer_id", "post_id"], name: "index_post_views_on_viewer_id_and_post_id", unique: true, using: :btree
+
+  create_table "posts", force: :cascade do |t|
+    t.string  "title",     null: false
+    t.string  "body",      null: false
+    t.integer "author_id", null: false
+  end
+
+  add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string   "username",        null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
+    t.string   "username",         null: false
+    t.string   "password_digest",  null: false
+    t.string   "session_token",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avi_file_name"
+    t.string   "avi_content_type"
+    t.integer  "avi_file_size"
+    t.datetime "avi_updated_at"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

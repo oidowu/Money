@@ -2,6 +2,7 @@ import * as SessionApiUtil from '../utils/session_api_util';
 
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 export const receiveUser = user => {
   return {
@@ -12,8 +13,14 @@ export const receiveUser = user => {
 
 export const receiveErrors = errors => {
   return {
-    type: RECEVIEV_ERRORS,
+    type: RECEIVE_ERRORS,
     errors
+  };
+};
+
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS,
   };
 };
 

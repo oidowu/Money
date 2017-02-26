@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/session_actions';
+import { Link } from 'react-router';
 
 function Header({showForm, user, logOut}) {
 
@@ -8,6 +9,8 @@ function Header({showForm, user, logOut}) {
     if (user) {
       return (
         [<span key="username">{user.username}</span>,
+        <img src={user.avi} key="avi" className="small"/>,
+        <Link to="/users/24" key="wow">user 24</Link>,
         <button onClick={logOut} key="log-out">Log Out</button>]
       );
     } else {

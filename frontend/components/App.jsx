@@ -4,7 +4,7 @@ import { signUp } from '../actions/session_actions';
 import Header from './Header';
 import SessionForm from './SessionForm';
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -18,9 +18,14 @@ export default class App extends React.Component {
 
   showForm(type) {
     return (e) => {
-      e.preventDefault();
       this.setState({formType: type});
     };
+  }
+
+  children() {
+    if (this.props.user) {
+      return this.props.children;
+    }
   }
 
   render() {
@@ -28,7 +33,16 @@ export default class App extends React.Component {
       <div id="whole-app">
         <Header showForm={this.showForm}/>
         <SessionForm formType={this.state.formType} showForm={this.showForm}/>
+        {this.children()}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.session.currentUser
+  };
+}
+
+export default connect(mapStateToProps)(App);
