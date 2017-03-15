@@ -41,16 +41,29 @@ class User < ActiveRecord::Base
     source: :viewed_posts
 
 
+  def self.find_by_credentials(username, password)
+    user = User.find_by(username: username)
+    return nil unless user
+    user.password_is?(password) ? user : nil
+  end
+
+  def self.find_or_create_from_auth_hash(auth_hash)
+    user = User.find_by(twitter_uid: auth_hash[:uid])
+    if user.nil?
+      user = User.create!(
+        twitter_uid: auth_hash[:uid],
+        username: auth_hash[:info][:nickname],
+        password_digest: auth_hash[:credentials][:token],
+        avi: auth_hash[:info][:image]
+      )
+    end
+    user
+  end
 	def password=(password)
     @password = password
 		self.password_digest = BCrypt::Password.create(password)
 	end
 
-	def self.find_by_credentials(username, password)
-		user = User.find_by(username: username)
-		return nil unless user
-		user.password_is?(password) ? user : nil
-	end
 
 	def password_is?(password)
 		BCrypt::Password.new(self.password_digest).is_password?(password)

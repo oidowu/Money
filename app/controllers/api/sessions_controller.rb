@@ -1,22 +1,28 @@
 class Api::SessionsController < ApplicationController
 
 	def create
-		@user = User.find_by_credentials(
-      params[:user][:username],
-      params[:user][:password]
-    )
-
-    if @user
+		if auth_hash
+			@user = User.find_or_create_from_auth_hash(auth_hash)
 			login(@user)
-			render "api/users/show"
+			redirect_to "/"
 		else
-			render(
-	        json: {
-						username: ["might be mistyped"],
-						password: ["might be mistyped"]
-					},
-        status: 401
-      )
+			@user = User.find_by_credentials(
+	      params[:user][:username],
+	      params[:user][:password]
+	    )
+
+	    if @user
+				login(@user)
+				render "api/users/show"
+			else
+				render(
+		        json: {
+							username: ["might be mistyped"],
+							password: ["might be mistyped"]
+						},
+	        status: 401
+	      )
+			end
 		end
 	end
 
@@ -31,6 +37,12 @@ class Api::SessionsController < ApplicationController
         status: 404
       )
 		end
+	end
+
+	private
+
+	def auth_hash
+		request.env['omniauth.auth']
 	end
 
 end

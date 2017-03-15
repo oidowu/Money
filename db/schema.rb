@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225175347) do
+ActiveRecord::Schema.define(version: 20170315153122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170225175347) do
     t.string   "avi_content_type"
     t.integer  "avi_file_size"
     t.datetime "avi_updated_at"
+    t.string   "twitter_uid"
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

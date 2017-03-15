@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :show]
   end
 
+  get "/auth/:provider/callback", to: "api/sessions#create"
+
   get "*path", to: "static_pages#root"
 end

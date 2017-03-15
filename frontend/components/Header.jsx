@@ -10,7 +10,6 @@ function Header({showForm, user, logOut}) {
       return (
         [<span key="username">{user.username}</span>,
         <img src={user.avi} key="avi" className="small"/>,
-        <Link to="/users/24" key="wow">user 24</Link>,
         <button onClick={logOut} key="log-out">Log Out</button>]
       );
     } else {
@@ -22,6 +21,7 @@ function Header({showForm, user, logOut}) {
   }
   return (
     <navbar id="navbar">
+      <a href="/auth/twitter">Sign in with Twitter</a>
       {handleUser()}
     </navbar>
   );
