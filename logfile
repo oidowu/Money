@@ -1,0 +1,8 @@
+LOG:  database system was shut down at 2017-04-09 10:31:45 EDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "Money_development" does not exist
+LOG:  using stale statistics instead of current ones because stats collector is not responding
+LOG:  using stale statistics instead of current ones because stats collector is not responding
+LOG:  stats collector's time 2017-04-11 22:48:48.074005-04 is later than backend local time 2017-04-11 22:48:46.639635-04
