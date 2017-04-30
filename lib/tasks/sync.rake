@@ -2,6 +2,8 @@ namespace :sync do
   task sources: [:environment] do
     postbiz = Feed.where(title: "Washington Post Business").first_or_initialize
     postbiz.update_attributes(url: "http://feeds.washingtonpost.com/rss/business", description: "Washington Post Business", last_modified: DateTime.current)
+    postnat = Feed.where(title: "Washington Post National").first_or_initialize
+    postnat.update_attributes(url: "http://feeds.washingtonpost.com/rss/national", description: "Washington Post National", last_modified: DateTime.current)
   end
   task feeds: [:environment] do
     Feed.all.each do |feed|
