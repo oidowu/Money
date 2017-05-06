@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423224545) do
+ActiveRecord::Schema.define(version: 20170410140415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "article_views", force: :cascade do |t|
+    t.integer "viewer_id",  null: false
+    t.integer "article_id", null: false
+  end
+
+  add_index "article_views", ["article_id"], name: "index_article_views_on_article_id", using: :btree
+  add_index "article_views", ["viewer_id", "article_id"], name: "index_article_views_on_viewer_id_and_article_id", unique: true, using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -43,21 +51,15 @@ ActiveRecord::Schema.define(version: 20170423224545) do
   add_index "follows", ["followee_id"], name: "index_follows_on_followee_id", unique: true, using: :btree
   add_index "follows", ["follower_id", "followee_id"], name: "index_follows_on_follower_id_and_followee_id", unique: true, using: :btree
 
-  create_table "post_views", force: :cascade do |t|
-    t.integer "viewer_id", null: false
-    t.integer "post_id",   null: false
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "friender_id", null: false
+    t.integer  "friendee_id", null: false
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "post_views", ["post_id"], name: "index_post_views_on_post_id", using: :btree
-  add_index "post_views", ["viewer_id", "post_id"], name: "index_post_views_on_viewer_id_and_post_id", unique: true, using: :btree
-
-  create_table "posts", force: :cascade do |t|
-    t.string  "title",     null: false
-    t.string  "body",      null: false
-    t.integer "author_id", null: false
-  end
-
-  add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
+  add_index "friendships", ["friender_id", "friendee_id"], name: "index_friendships_on_friender_id_and_friendee_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",         null: false

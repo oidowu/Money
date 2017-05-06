@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { fetchUserFeed } from '../actions/feed_actions';
-import { feedPosts } from '../reducers/postReducer';
+import { feedArticles } from '../reducers/articlesReducer';
 
 class Feed extends React.Component {
   componentDidMount() {
@@ -10,21 +9,19 @@ class Feed extends React.Component {
   }
 
   render() {
-    console.log(this.props.posts);
     return (
-
       <ul>
-        {this.props.posts.map(post => {
-          return <li key={post.id}><Link to={`/posts/${post.id}`}>{post.title}</Link></li>;
+        {this.props.articles.map(post => {
+          return <li key={post.id}><a href={post.url}>{post.title}</a></li>;
           })}
         </ul>
     );
   }
 }
 
-function mapStateToProps({posts}) {
+function mapStateToProps({articles}) {
   return {
-    posts: feedPosts(posts)
+    articles: feedArticles(articles)
   };
 }
 

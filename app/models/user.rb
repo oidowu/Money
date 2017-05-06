@@ -10,36 +10,36 @@ class User < ActiveRecord::Base
   has_attached_file :avi, default_url: "https://s3.amazonaws.com/money-dev/users/avis/000/000/020/original/russ.gif"
   validates_attachment_content_type :avi, content_type: /\Aimage\/.*\Z/
 
-  has_many :posts,
-    foreign_key: :author_id
-
-  has_many :post_views,
+  has_many :article_views,
     foreign_key: :viewer_id
 
-  has_many :viewed_posts,
-    through: :post_views,
-    source: :post
+  has_many :viewed_articles,
+    through: :article_views,
+    source: :article
 
-  has_many :out_follows,
-    foreign_key: :follower_id,
-    class_name: "Follow"
+  has_many :out_friendings,
+    foreign_key: :friender_id,
+    class_name: "Friendship"
 
-  has_many :in_follows,
-    foreign_key: :followee_id,
-    class_name: "Follow"
+  has_many :in_friendings,
+    foreign_key: :friendee_id,
+    class_name: "Friendship"
 
-  has_many :followers,
-    through: :in_follows,
-    source: :follower
+  has_many :in_friends,
+    through: :in_friendings,
+    source: :friender
 
-  has_many :followed_users,
-    through: :out_follows,
-    source: :followee
+  has_many :in_friend_articles,
+    through: :in_friends,
+    source: :viewed_articles
 
-  has_many :feed_posts,
-    through: :followed_users,
-    source: :viewed_posts
+  has_many :out_friends,
+    through: :out_friendings,
+    source: :friendee
 
+  has_many :out_friend_articles,
+    through: :out_friends,
+    source: :viewed_articles
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
@@ -59,11 +59,16 @@ class User < ActiveRecord::Base
     end
     user
   end
+
+  def feed_articles
+    out_articles = self.out_friend_articles.includes(:viewers)
+    in_articles =  self.in_friend_articles.includes(:viewers)
+  end
+
 	def password=(password)
     @password = password
 		self.password_digest = BCrypt::Password.create(password)
 	end
-
 
 	def password_is?(password)
 		BCrypt::Password.new(self.password_digest).is_password?(password)

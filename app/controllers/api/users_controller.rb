@@ -11,8 +11,8 @@ class Api::UsersController < ApplicationController
   end
 
   def feed
-    @posts = current_user.feed_posts
-    render "api/posts/index"
+    @articles = current_user.feed_articles
+    render "api/articles/index"
   end
 
   def show

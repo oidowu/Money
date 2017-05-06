@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { fetchProfile } from '../actions/user_actions';
 import { createPost } from '../actions/post_actions';
-import { selectUserPosts } from '../reducers/postReducer';
+import { selectUserPosts } from '../reducers/articlesReducer';
 
 class UserShow extends React.Component {
 
