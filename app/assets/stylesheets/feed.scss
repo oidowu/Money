@@ -1,0 +1,23 @@
+#feed-box {
+  display: flex;
+  width: 75%;
+  margin: auto
+}
+
+.article-list {
+  margin: auto;
+
+  img {
+    width: 500px;
+    height: 200px;
+  }
+}
+
+.article-item {
+  width: 600px;
+  height: 300px;
+  border: 1px solid black;
+  background: #eee;
+  margin-bottom: 50px;
+
+}

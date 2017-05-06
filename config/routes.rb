@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "users/feed", to: "users#feed"
     resources :users, only: [:create, :show]
     resources :posts, only: [:create, :show]
+    resources :article_views, only: [:create]
   end
 
   get "/auth/:provider/callback", to: "api/sessions#create"

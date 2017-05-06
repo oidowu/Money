@@ -8,18 +8,38 @@ class Feed extends React.Component {
     this.props.fetchUserFeed();
   }
 
+  recordView(article_id) {
+    return () => {
+      return $.ajax({
+        method: 'POST',
+        data: { article_view: { article_id }},
+        url: '/api/article_views'
+      });
+    };
+  }
+
   render() {
     return (
-      <ul>
-        {this.props.articles.map(post => {
-          return <li key={post.id}><a href={post.url}>{post.title}</a></li>;
+      <section id="feed-box">
+
+        <ul className="article-list">
+          {this.props.articles.map(article => {
+            return (
+              <li key={article.id}
+                onClick={this.recordView(article.id)}
+                className="article-item">
+                <a href={article.url}>{article.title}</a>
+                <img src={article.image_url}/>
+              </li>
+            );
           })}
         </ul>
+      </section>
     );
   }
 }
 
-function mapStateToProps({articles}) {
+function mapStateToProps({ articles }) {
   return {
     articles: feedArticles(articles)
   };
