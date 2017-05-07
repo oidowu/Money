@@ -1,13 +1,18 @@
 #react-content {
   color: black;
   font-family: sans-serif;
-  background: #eee;
+  background: white;
 }
 
 .small {
   width: 50px;
   height: 50px;
 }
+
+.flex {
+  display: flex;
+}
+
 
 #navbar {
   background: #ed1c40;
@@ -48,6 +53,10 @@
     border: none;
     box-shadow: 0 0 5px red;
   }
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 

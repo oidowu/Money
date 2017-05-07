@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ArticleItem from './ArticleItem';
 import { fetchUserFeed } from '../actions/feed_actions';
 import { feedArticles } from '../reducers/articlesReducer';
 
@@ -25,12 +26,9 @@ class Feed extends React.Component {
         <ul className="article-list">
           {this.props.articles.map(article => {
             return (
-              <li key={article.id}
-                onClick={this.recordView(article.id)}
-                className="article-item">
-                <a href={article.url}>{article.title}</a>
-                <img src={article.image_url}/>
-              </li>
+              <ArticleItem key={article.id}
+                recordView={this.recordView(article.id)}
+                article={article}/>
             );
           })}
         </ul>

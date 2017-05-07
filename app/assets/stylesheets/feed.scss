@@ -1,23 +1,54 @@
 #feed-box {
   display: flex;
   width: 75%;
-  margin: auto
+  margin: 5px auto;
 }
 
 .article-list {
   margin: auto;
+}
 
-  img {
-    width: 500px;
-    height: 200px;
-  }
+.article-viewer-container {
+  margin: 0 2px;
+  width: 50px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.article-pic {
+  width: 500px;
+  height: 200px;
+}
+
+.viewer-list {
+  margin: 10px;
+  position: absolute;
+  bottom: 0px;
+}
+
+.article-title {
+  font-size: 24px;
+  max-width: 150px;
+  margin-left: 10px;
 }
 
 .article-item {
   width: 600px;
-  height: 300px;
+  height: 280px;
   border: 1px solid black;
   background: #eee;
   margin-bottom: 50px;
+  position: relative;
+}
 
+.article-viewer {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+
+  & + span {
+    font-size: 10px;
+  }
 }
