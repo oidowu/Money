@@ -13,13 +13,20 @@
   display: flex;
 }
 
+#logo {
+  font-family: Barrio;
+  color: white;
+  font-size: 32px;
+}
+
 
 #navbar {
-  background: #ed1c40;
+  background: #9befc9;
   display: block;
   font-family: arial;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .modal-backdrop {

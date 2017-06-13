@@ -19,10 +19,16 @@ function Header({showForm, user, logOut}) {
       );
     }
   }
+  <a href="/auth/twitter">Sign in with Twitter</a>
   return (
     <navbar id="navbar">
-      <a href="/auth/twitter">Sign in with Twitter</a>
-      {handleUser()}
+      <section/>
+      <section id="logo">
+        MOBI
+      </section>
+      <section id="right-nav" className="flex">
+        {handleUser()}
+      </section>
     </navbar>
   );
 }
